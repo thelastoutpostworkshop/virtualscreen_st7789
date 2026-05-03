@@ -31,6 +31,8 @@ Recommended board settings:
 
 All five displays share the same SPI and control pins, except each display has its own chip-select pin.
 
+![ESP32-S3 wiring diagram for five ST7789 displays](wiring_diagram.svg)
+
 Default shared pin configuration in [virtualscreen_st7789.ino](virtualscreen_st7789.ino):
 
 | Display pin | ESP32-S3 GPIO | Sketch setting |
