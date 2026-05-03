@@ -1,185 +1,152 @@
-<svg width="1500" height="950" viewBox="0 0 1500 950" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<svg width="1500" height="860" viewBox="0 0 1500 860" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">ESP32-S3 to five ST7789 TFT wiring diagram</title>
-  <desc id="desc">Five 1.54 inch ST7789 SPI displays share 3V3, GND, SCK, MOSI, DC, and RST. Each display has a separate CS line.</desc>
+  <desc id="desc">A simplified wiring diagram. One shared bus carries 3.3 V, ground, SCK, MOSI, DC, reset, and backlight to all five ST7789 displays. Each display has its own chip select line.</desc>
   <defs>
     <style>
-      .bg { fill: #f7f9fc; }
+      .bg { fill: #f8fafc; }
       .card { fill: #ffffff; stroke: #c7d2e1; stroke-width: 2; }
       .board { fill: #172554; stroke: #0f172a; stroke-width: 3; }
+      .hub { fill: #eef6ff; stroke: #60a5fa; stroke-width: 2; }
       .screen { fill: #111827; stroke: #374151; stroke-width: 3; }
       .glass { fill: #0f766e; stroke: #5eead4; stroke-width: 2; }
-      .label { font-family: Arial, Helvetica, sans-serif; fill: #0f172a; font-size: 20px; }
+      .note { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+      .title { font-family: Arial, Helvetica, sans-serif; fill: #0f172a; font-size: 22px; font-weight: 700; }
+      .label { font-family: Arial, Helvetica, sans-serif; fill: #0f172a; font-size: 18px; font-weight: 700; }
       .small { font-family: Arial, Helvetica, sans-serif; fill: #334155; font-size: 15px; }
       .tiny { font-family: Arial, Helvetica, sans-serif; fill: #475569; font-size: 13px; }
       .white { font-family: Arial, Helvetica, sans-serif; fill: #ffffff; font-size: 20px; font-weight: 700; }
+      .pin-label { font-family: Arial, Helvetica, sans-serif; fill: #e2e8f0; font-size: 14px; }
       .screen-title { font-family: Arial, Helvetica, sans-serif; fill: #ffffff; font-size: 18px; font-weight: 700; }
       .screen-pin { font-family: Arial, Helvetica, sans-serif; fill: #e5e7eb; font-size: 13px; }
-      .pin-label { font-family: Arial, Helvetica, sans-serif; fill: #e2e8f0; font-size: 15px; }
-      .wire { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-      .wire-thin { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-      .vcc { stroke: #dc2626; }
-      .gnd { stroke: #111827; }
-      .sck { stroke: #f97316; }
-      .mosi { stroke: #eab308; }
-      .dc { stroke: #2563eb; }
-      .rst { stroke: #7c3aed; }
-      .cs { stroke: #059669; }
+      .wire { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .bus { stroke: #64748b; stroke-width: 12; }
+      .bus-tap { stroke: #64748b; stroke-width: 7; }
+      .cs { stroke: #059669; stroke-width: 4; }
       .pin { fill: #ffffff; stroke: #0f172a; stroke-width: 2; }
-      .legend-box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .bus-dot { fill: #64748b; }
     </style>
   </defs>
 
-  <rect class="bg" x="0" y="0" width="1500" height="950"/>
-  <rect class="card" x="24" y="24" width="1452" height="902" rx="18"/>
+  <rect class="bg" x="0" y="0" width="1500" height="860"/>
+  <rect class="card" x="24" y="24" width="1452" height="812" rx="18"/>
 
-  <text class="label" x="750" y="60" text-anchor="middle" font-weight="700">ESP32-S3 shared SPI wiring for five 240x240 ST7789 displays</text>
-  <text class="small" x="750" y="88" text-anchor="middle">TFT pins marked SCL and SDA are SPI clock and SPI MOSI, not I2C.</text>
+  <text class="title" x="750" y="62" text-anchor="middle">ESP32-S3 shared SPI wiring for five 240x240 ST7789 displays</text>
+  <text class="small" x="750" y="90" text-anchor="middle">The shared bus goes to every display. The green CS lines select one display at a time.</text>
 
   <!-- ESP32-S3 board -->
-  <rect class="board" x="55" y="155" width="280" height="650" rx="22"/>
-  <text class="white" x="195" y="195" text-anchor="middle">ESP32-S3</text>
-  <text class="pin-label" x="195" y="222" text-anchor="middle">Dev board with PSRAM</text>
-  <rect x="140" y="740" width="110" height="36" rx="8" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
-  <text class="pin-label" x="195" y="764" text-anchor="middle">USB</text>
+  <rect class="board" x="60" y="145" width="300" height="575" rx="22"/>
+  <text class="white" x="210" y="188" text-anchor="middle">ESP32-S3</text>
+  <text class="pin-label" x="210" y="215" text-anchor="middle">Dev board with PSRAM</text>
 
-  <!-- ESP32 pins -->
-  <g>
-    <circle class="pin" cx="335" cy="250" r="8"/><text class="pin-label" x="80" y="256">3V3</text>
-    <circle class="pin" cx="335" cy="292" r="8"/><text class="pin-label" x="80" y="298">GND</text>
-    <circle class="pin" cx="335" cy="344" r="8"/><text class="pin-label" x="80" y="350">GPIO36  TFT_SCK</text>
-    <circle class="pin" cx="335" cy="386" r="8"/><text class="pin-label" x="80" y="392">GPIO35  TFT_MOSI</text>
-    <circle class="pin" cx="335" cy="428" r="8"/><text class="pin-label" x="80" y="434">GPIO41  TFT_DC</text>
-    <circle class="pin" cx="335" cy="470" r="8"/><text class="pin-label" x="80" y="476">GPIO42  TFT_RST</text>
-    <circle class="pin" cx="335" cy="550" r="8"/><text class="pin-label" x="80" y="556">GPIO25  CS screen 1</text>
-    <circle class="pin" cx="335" cy="592" r="8"/><text class="pin-label" x="80" y="598">GPIO12  CS screen 2</text>
-    <circle class="pin" cx="335" cy="634" r="8"/><text class="pin-label" x="80" y="640">GPIO17  CS screen 3</text>
-    <circle class="pin" cx="335" cy="676" r="8"/><text class="pin-label" x="80" y="682">GPIO13  CS screen 4</text>
-    <circle class="pin" cx="335" cy="718" r="8"/><text class="pin-label" x="80" y="724">GPIO26  CS screen 5</text>
-  </g>
+  <text class="pin-label" x="88" y="260">Shared bus pins</text>
+  <text class="pin-label" x="88" y="285">3V3, GND</text>
+  <text class="pin-label" x="88" y="310">GPIO36 -> TFT SCL/SCK</text>
+  <text class="pin-label" x="88" y="335">GPIO35 -> TFT SDA/MOSI</text>
+  <text class="pin-label" x="88" y="360">GPIO41 -> TFT DC</text>
+  <text class="pin-label" x="88" y="385">GPIO42 -> TFT RES/RST</text>
+  <circle class="pin" cx="360" cy="325" r="8"/>
 
-  <!-- Shared bus rails -->
-  <text class="small" x="514" y="130" text-anchor="middle" font-weight="700">shared by all displays</text>
-  <line class="wire vcc" x1="430" y1="130" x2="430" y2="890"/>
-  <line class="wire gnd" x1="465" y1="130" x2="465" y2="890"/>
-  <line class="wire sck" x1="500" y1="130" x2="500" y2="890"/>
-  <line class="wire mosi" x1="535" y1="130" x2="535" y2="890"/>
-  <line class="wire dc" x1="570" y1="130" x2="570" y2="890"/>
-  <line class="wire rst" x1="605" y1="130" x2="605" y2="890"/>
+  <text class="pin-label" x="88" y="456">GPIO25  CS screen 1</text>
+  <text class="pin-label" x="88" y="501">GPIO12  CS screen 2</text>
+  <text class="pin-label" x="88" y="546">GPIO17  CS screen 3</text>
+  <text class="pin-label" x="88" y="591">GPIO13  CS screen 4</text>
+  <text class="pin-label" x="88" y="636">GPIO26  CS screen 5</text>
+  <circle class="pin" cx="360" cy="450" r="8"/>
+  <circle class="pin" cx="360" cy="495" r="8"/>
+  <circle class="pin" cx="360" cy="540" r="8"/>
+  <circle class="pin" cx="360" cy="585" r="8"/>
+  <circle class="pin" cx="360" cy="630" r="8"/>
 
-  <text class="tiny" x="430" y="116" text-anchor="middle">3V3 + BLK</text>
-  <text class="tiny" x="465" y="116" text-anchor="middle">GND</text>
-  <text class="tiny" x="500" y="116" text-anchor="middle">SCL</text>
-  <text class="tiny" x="535" y="116" text-anchor="middle">SDA</text>
-  <text class="tiny" x="570" y="116" text-anchor="middle">DC</text>
-  <text class="tiny" x="605" y="116" text-anchor="middle">RES</text>
+  <rect x="150" y="668" width="120" height="34" rx="7" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+  <text class="pin-label" x="210" y="691" text-anchor="middle">USB</text>
 
-  <!-- ESP32 pins to shared rails -->
-  <path class="wire vcc" d="M335 250 H430"/>
-  <path class="wire gnd" d="M335 292 H465"/>
-  <path class="wire sck" d="M335 344 H500"/>
-  <path class="wire mosi" d="M335 386 H535"/>
-  <path class="wire dc" d="M335 428 H570"/>
-  <path class="wire rst" d="M335 470 H605"/>
+  <!-- Shared bus hub -->
+  <rect class="hub" x="430" y="205" width="330" height="155" rx="14"/>
+  <text class="label" x="595" y="236" text-anchor="middle">shared bus</text>
+  <text class="small" x="455" y="267">3V3 + TFT BL</text>
+  <text class="small" x="455" y="292">GND</text>
+  <text class="small" x="455" y="317">GPIO36 -> TFT SCL/SCK</text>
+  <text class="small" x="455" y="342">GPIO35 -> TFT SDA/MOSI</text>
+  <text class="small" x="615" y="267">GPIO41 -> TFT DC</text>
+  <text class="small" x="615" y="292">GPIO42 -> TFT RES/RST</text>
+
+  <path class="wire bus" d="M360 325 H430"/>
+  <path class="wire bus" d="M760 282 H980"/>
+  <path class="wire bus" d="M980 155 V700"/>
+  <text class="tiny" x="865" y="266" text-anchor="middle">one shared bundle</text>
 
   <!-- TFT modules -->
-  <g id="tft1" transform="translate(1000 50)">
-    <rect class="screen" x="0" y="0" width="420" height="155" rx="14"/>
-    <rect class="glass" x="184" y="34" width="204" height="94" rx="7"/>
-    <text class="screen-title" x="286" y="84" text-anchor="middle">TFT 1</text>
-    <text class="screen-pin" x="26" y="40">VCC + BLK</text>
-    <text class="screen-pin" x="26" y="59">GND</text>
-    <text class="screen-pin" x="26" y="78">SCL</text>
-    <text class="screen-pin" x="26" y="97">SDA</text>
-    <text class="screen-pin" x="26" y="116">DC</text>
-    <text class="screen-pin" x="26" y="135">RES</text>
-    <text class="screen-pin" x="26" y="150">CS</text>
+  <g transform="translate(1060 105)">
+    <rect class="screen" x="0" y="0" width="380" height="105" rx="14"/>
+    <rect class="glass" x="188" y="24" width="160" height="58" rx="7"/>
+    <text class="screen-title" x="268" y="60" text-anchor="middle">TFT 1</text>
+    <text class="screen-pin" x="26" y="36">shared bus pins</text>
+    <text class="screen-pin" x="26" y="61">VCC GND SCL SDA DC RES BL</text>
+    <text class="screen-pin" x="26" y="88">CS</text>
   </g>
-  <g id="tft2" transform="translate(1000 220)">
-    <rect class="screen" x="0" y="0" width="420" height="155" rx="14"/>
-    <rect class="glass" x="184" y="34" width="204" height="94" rx="7"/>
-    <text class="screen-title" x="286" y="84" text-anchor="middle">TFT 2</text>
-    <text class="screen-pin" x="26" y="40">VCC + BLK</text>
-    <text class="screen-pin" x="26" y="59">GND</text>
-    <text class="screen-pin" x="26" y="78">SCL</text>
-    <text class="screen-pin" x="26" y="97">SDA</text>
-    <text class="screen-pin" x="26" y="116">DC</text>
-    <text class="screen-pin" x="26" y="135">RES</text>
-    <text class="screen-pin" x="26" y="150">CS</text>
+  <g transform="translate(1060 235)">
+    <rect class="screen" x="0" y="0" width="380" height="105" rx="14"/>
+    <rect class="glass" x="188" y="24" width="160" height="58" rx="7"/>
+    <text class="screen-title" x="268" y="60" text-anchor="middle">TFT 2</text>
+    <text class="screen-pin" x="26" y="36">shared bus pins</text>
+    <text class="screen-pin" x="26" y="61">VCC GND SCL SDA DC RES BL</text>
+    <text class="screen-pin" x="26" y="88">CS</text>
   </g>
-  <g id="tft3" transform="translate(1000 390)">
-    <rect class="screen" x="0" y="0" width="420" height="155" rx="14"/>
-    <rect class="glass" x="184" y="34" width="204" height="94" rx="7"/>
-    <text class="screen-title" x="286" y="84" text-anchor="middle">TFT 3</text>
-    <text class="screen-pin" x="26" y="40">VCC + BLK</text>
-    <text class="screen-pin" x="26" y="59">GND</text>
-    <text class="screen-pin" x="26" y="78">SCL</text>
-    <text class="screen-pin" x="26" y="97">SDA</text>
-    <text class="screen-pin" x="26" y="116">DC</text>
-    <text class="screen-pin" x="26" y="135">RES</text>
-    <text class="screen-pin" x="26" y="150">CS</text>
+  <g transform="translate(1060 365)">
+    <rect class="screen" x="0" y="0" width="380" height="105" rx="14"/>
+    <rect class="glass" x="188" y="24" width="160" height="58" rx="7"/>
+    <text class="screen-title" x="268" y="60" text-anchor="middle">TFT 3</text>
+    <text class="screen-pin" x="26" y="36">shared bus pins</text>
+    <text class="screen-pin" x="26" y="61">VCC GND SCL SDA DC RES BL</text>
+    <text class="screen-pin" x="26" y="88">CS</text>
   </g>
-  <g id="tft4" transform="translate(1000 560)">
-    <rect class="screen" x="0" y="0" width="420" height="155" rx="14"/>
-    <rect class="glass" x="184" y="34" width="204" height="94" rx="7"/>
-    <text class="screen-title" x="286" y="84" text-anchor="middle">TFT 4</text>
-    <text class="screen-pin" x="26" y="40">VCC + BLK</text>
-    <text class="screen-pin" x="26" y="59">GND</text>
-    <text class="screen-pin" x="26" y="78">SCL</text>
-    <text class="screen-pin" x="26" y="97">SDA</text>
-    <text class="screen-pin" x="26" y="116">DC</text>
-    <text class="screen-pin" x="26" y="135">RES</text>
-    <text class="screen-pin" x="26" y="150">CS</text>
+  <g transform="translate(1060 495)">
+    <rect class="screen" x="0" y="0" width="380" height="105" rx="14"/>
+    <rect class="glass" x="188" y="24" width="160" height="58" rx="7"/>
+    <text class="screen-title" x="268" y="60" text-anchor="middle">TFT 4</text>
+    <text class="screen-pin" x="26" y="36">shared bus pins</text>
+    <text class="screen-pin" x="26" y="61">VCC GND SCL SDA DC RES BL</text>
+    <text class="screen-pin" x="26" y="88">CS</text>
   </g>
-  <g id="tft5" transform="translate(1000 730)">
-    <rect class="screen" x="0" y="0" width="420" height="155" rx="14"/>
-    <rect class="glass" x="184" y="34" width="204" height="94" rx="7"/>
-    <text class="screen-title" x="286" y="84" text-anchor="middle">TFT 5</text>
-    <text class="screen-pin" x="26" y="40">VCC + BLK</text>
-    <text class="screen-pin" x="26" y="59">GND</text>
-    <text class="screen-pin" x="26" y="78">SCL</text>
-    <text class="screen-pin" x="26" y="97">SDA</text>
-    <text class="screen-pin" x="26" y="116">DC</text>
-    <text class="screen-pin" x="26" y="135">RES</text>
-    <text class="screen-pin" x="26" y="150">CS</text>
+  <g transform="translate(1060 625)">
+    <rect class="screen" x="0" y="0" width="380" height="105" rx="14"/>
+    <rect class="glass" x="188" y="24" width="160" height="58" rx="7"/>
+    <text class="screen-title" x="268" y="60" text-anchor="middle">TFT 5</text>
+    <text class="screen-pin" x="26" y="36">shared bus pins</text>
+    <text class="screen-pin" x="26" y="61">VCC GND SCL SDA DC RES BL</text>
+    <text class="screen-pin" x="26" y="88">CS</text>
   </g>
 
-  <!-- Shared branches to displays -->
-  <g>
-    <!-- TFT 1 -->
-    <path class="wire-thin vcc" d="M430 88 H1000"/><path class="wire-thin gnd" d="M465 107 H1000"/><path class="wire-thin sck" d="M500 126 H1000"/><path class="wire-thin mosi" d="M535 145 H1000"/><path class="wire-thin dc" d="M570 164 H1000"/><path class="wire-thin rst" d="M605 183 H1000"/>
-    <!-- TFT 2 -->
-    <path class="wire-thin vcc" d="M430 258 H1000"/><path class="wire-thin gnd" d="M465 277 H1000"/><path class="wire-thin sck" d="M500 296 H1000"/><path class="wire-thin mosi" d="M535 315 H1000"/><path class="wire-thin dc" d="M570 334 H1000"/><path class="wire-thin rst" d="M605 353 H1000"/>
-    <!-- TFT 3 -->
-    <path class="wire-thin vcc" d="M430 428 H1000"/><path class="wire-thin gnd" d="M465 447 H1000"/><path class="wire-thin sck" d="M500 466 H1000"/><path class="wire-thin mosi" d="M535 485 H1000"/><path class="wire-thin dc" d="M570 504 H1000"/><path class="wire-thin rst" d="M605 523 H1000"/>
-    <!-- TFT 4 -->
-    <path class="wire-thin vcc" d="M430 598 H1000"/><path class="wire-thin gnd" d="M465 617 H1000"/><path class="wire-thin sck" d="M500 636 H1000"/><path class="wire-thin mosi" d="M535 655 H1000"/><path class="wire-thin dc" d="M570 674 H1000"/><path class="wire-thin rst" d="M605 693 H1000"/>
-    <!-- TFT 5 -->
-    <path class="wire-thin vcc" d="M430 768 H1000"/><path class="wire-thin gnd" d="M465 787 H1000"/><path class="wire-thin sck" d="M500 806 H1000"/><path class="wire-thin mosi" d="M535 825 H1000"/><path class="wire-thin dc" d="M570 844 H1000"/><path class="wire-thin rst" d="M605 863 H1000"/>
-  </g>
+  <!-- Shared bus taps -->
+  <circle class="bus-dot" cx="980" cy="158" r="7"/>
+  <circle class="bus-dot" cx="980" cy="288" r="7"/>
+  <circle class="bus-dot" cx="980" cy="418" r="7"/>
+  <circle class="bus-dot" cx="980" cy="548" r="7"/>
+  <circle class="bus-dot" cx="980" cy="678" r="7"/>
+  <path class="wire bus-tap" d="M980 158 H1060"/>
+  <path class="wire bus-tap" d="M980 288 H1060"/>
+  <path class="wire bus-tap" d="M980 418 H1060"/>
+  <path class="wire bus-tap" d="M980 548 H1060"/>
+  <path class="wire bus-tap" d="M980 678 H1060"/>
 
   <!-- Per-screen chip select lines -->
-  <path class="wire cs" d="M335 550 H720 V199 H1000"/>
-  <path class="wire cs" d="M335 592 H760 V369 H1000"/>
-  <path class="wire cs" d="M335 634 H800 V539 H1000"/>
-  <path class="wire cs" d="M335 676 H840 V709 H1000"/>
-  <path class="wire cs" d="M335 718 H880 V879 H1000"/>
+  <path class="wire cs" d="M360 450 H815 V193 H1060"/>
+  <path class="wire cs" d="M360 495 H850 V323 H1060"/>
+  <path class="wire cs" d="M360 540 H885 V453 H1060"/>
+  <path class="wire cs" d="M360 585 H920 V583 H1060"/>
+  <path class="wire cs" d="M360 630 H955 V713 H1060"/>
 
-  <text class="tiny" x="742" y="194">CS1 GPIO25</text>
-  <text class="tiny" x="782" y="364">CS2 GPIO12</text>
-  <text class="tiny" x="822" y="534">CS3 GPIO17</text>
-  <text class="tiny" x="862" y="704">CS4 GPIO13</text>
-  <text class="tiny" x="902" y="874">CS5 GPIO26</text>
+  <text class="tiny" x="825" y="188">CS1 GPIO25</text>
+  <text class="tiny" x="860" y="318">CS2 GPIO12</text>
+  <text class="tiny" x="895" y="448">CS3 GPIO17</text>
+  <text class="tiny" x="930" y="578">CS4 GPIO13</text>
+  <text class="tiny" x="965" y="708">CS5 GPIO26</text>
 
-  <!-- Legend -->
-  <rect class="legend-box" x="650" y="122" width="285" height="160" rx="10"/>
-  <text class="small" x="792" y="148" text-anchor="middle" font-weight="700">Wire colors</text>
-  <line class="wire-thin vcc" x1="675" y1="172" x2="725" y2="172"/><text class="tiny" x="740" y="177">3V3 and BLK</text>
-  <line class="wire-thin gnd" x1="675" y1="194" x2="725" y2="194"/><text class="tiny" x="740" y="199">GND</text>
-  <line class="wire-thin sck" x1="675" y1="216" x2="725" y2="216"/><text class="tiny" x="740" y="221">SCL / SCK</text>
-  <line class="wire-thin mosi" x1="675" y1="238" x2="725" y2="238"/><text class="tiny" x="740" y="243">SDA / MOSI</text>
-  <line class="wire-thin dc" x1="675" y1="260" x2="725" y2="260"/><text class="tiny" x="740" y="265">DC</text>
-  <line class="wire-thin rst" x1="810" y1="216" x2="860" y2="216"/><text class="tiny" x="875" y="221">RES / RST</text>
-  <line class="wire-thin cs" x1="810" y1="238" x2="860" y2="238"/><text class="tiny" x="875" y="243">CS per display</text>
-
-  <text class="tiny" x="750" y="914" text-anchor="middle">Use 3.3 V logic. If a separate 3.3 V display supply is used, connect its GND to ESP32-S3 GND.</text>
+  <!-- Notes and legend outside wire area -->
+  <rect class="note" x="75" y="758" width="1350" height="52" rx="10"/>
+  <line class="wire bus-tap" x1="105" y1="784" x2="170" y2="784"/>
+  <text class="tiny" x="185" y="789">shared bus: 3V3, GND, SCL/SCK, SDA/MOSI, DC, RES/RST, BL</text>
+  <line class="wire cs" x1="625" y1="784" x2="690" y2="784"/>
+  <text class="tiny" x="705" y="789">individual chip select lines</text>
+  <text class="tiny" x="1010" y="789">Use 3.3 V logic. If using a separate display supply, connect grounds together.</text>
 </svg>
